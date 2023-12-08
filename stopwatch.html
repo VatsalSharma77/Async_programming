@@ -1,0 +1,61 @@
+<!-- Instructions
+Create a stopwatch.html page
+have the following buttons start, pause, reset
+on start, the stopwatch should start
+on pause, the stopwatch should pause
+on reset, it should go back to initial state -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch</title>
+</head>
+<body>
+    <div id="stopwatch">0:00</div>
+    <button onclick="start()">Start</button>
+    <button onclick="pause()">Stop</button>
+    <button onclick="reset()">Reset</button>  
+</body>
+</html>
+<script>
+    let watch;
+    let minutes = 0;
+    let seconds = 0;
+    let hours = 0;
+    let millisec = 0;
+
+    function start(){
+        watch = setInterval(stopwatch, 10);
+    }
+    function pause(){
+        clearInterval(watch);
+    }
+    function reset(){
+        clearInterval(watch);
+        hours = 0;
+        seconds = 0;
+        minutes = 0
+        millisec = 0;
+        document.getElementById('stopwatch').innerText="0:00";
+    }
+    function stopwatch(){
+        hours = Math.floor(minutes/60);
+        let remainhours = Math.floor(hours % 60);
+        minutes = Math.floor(seconds / 60);
+        let remainMin = Math.floor(minutes % 60);
+        seconds = Math.floor(millisec/100);
+        let remainingSec = Math.floor(seconds % 60);
+        let remainingmilliSec = Math.floor(millisec % 100);
+        millisec++;
+        document.getElementById('stopwatch').innerText=`${remainingSec}:${remainingmilliSec}`;
+
+        if (seconds>60){
+            document.getElementById('stopwatch').innerText=`${remainMin}:${remainingSec}:${remainingmilliSec}`;
+        }
+        
+        if (minutes>60){
+            document.getElementById('stopwatch').innerText=`${remainhours}:${remainMin}:${remainingSec}:${remainingmilliSec}`;
+        }
+    }
+</script>

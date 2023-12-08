@@ -1,0 +1,81 @@
+<!-- Instructions
+Create a timer.html page
+Create input boxes which accepts time. (minutes, seconds and hours should be taken)
+have the following buttons start, pause, reset
+on start, the countdown should start
+on pause the timer should be pause
+on reset reset and stop the timer -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+</head>
+<body>
+
+
+<label for="hours">Hours:</label>
+<input type="number" id="hours" placeholder="0" > 
+
+<label for="minutes">Minutes:</label>
+<input type="number" id="minutes"  placeholder="0" >
+
+<label for="seconds">Seconds:</label>
+<input type="number" id="seconds"  placeholder="0">
+
+<br><br>
+
+<button onclick="start()">Start</button>
+<button onclick="pause()">Pause</button>
+<button onclick="reset()">Reset</button>
+
+<p id="timer"></p>
+
+<script>
+    let timer;
+    let hoursInput = document.getElementById("hours");
+    let minutesInput = document.getElementById("minutes");
+    let secondsInput = document.getElementById("seconds");
+    let Display = document.getElementById("timer");
+
+    function start() {
+        let hours = Number(hoursInput.value);
+        let minutes = Number(minutesInput.value);
+        let seconds = Number(secondsInput.value);
+
+
+        let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+        if (totalSeconds > 0) {
+            timer = setInterval(function () {
+                if (totalSeconds <= 0) {
+                    clearInterval(timer);
+                }
+                
+                    let hoursRemaining = Math.floor(totalSeconds / 3600);
+                    let minutesRemaining = Math.floor((totalSeconds % 3600) / 60);
+                    let secondsRemaining = totalSeconds % 60;
+
+                    Display.innerText = `${hoursRemaining}h ${minutesRemaining}m ${secondsRemaining}s`;
+                    totalSeconds--;
+                
+            }, 1000);
+        }
+    }
+
+    function pause() {
+        clearInterval(timer);
+    }
+
+    function reset() {
+        timerDisplay.innerHTML = "";
+        hoursInput.value = "";
+        minutesInput.value = "";
+        secondsInput.value = "";
+        clearInterval(timer);
+    }
+</script>
+
+</body>
+</html>
